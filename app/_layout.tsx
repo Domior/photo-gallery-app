@@ -3,9 +3,10 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { SQLiteProvider } from 'expo-sqlite';
+import { useEffect, Suspense } from 'react';
 import 'react-native-reanimated';
-
+import { ActivityIndicator } from 'react-native';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -29,11 +30,15 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
+      <Suspense fallback={<ActivityIndicator size={'large'} />}>
+        <SQLiteProvider databaseName={process.env.EXPO_PUBLIC_SQLITE_DB_NAME ?? ''} useSuspense>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+        </SQLiteProvider>
+      </Suspense>
     </ThemeProvider>
   );
 }
