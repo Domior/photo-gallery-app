@@ -33,7 +33,7 @@ export default function PhotoGallery() {
   const loadPhotos = useCallback(async () => {
     setIsLoading(true);
     try {
-      initializeDatabase(db);
+      await initializeDatabase(db);
       const response = await getPhotos({ db });
       setPhotos(response);
     } catch (error) {
