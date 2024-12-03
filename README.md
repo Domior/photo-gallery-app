@@ -1,17 +1,31 @@
-# Welcome to your Expo app 👋
+## Project Requirements
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+`node 20.12.0`
+`npm 10.5.0`
+`react-native 0.76.3`
+`react ^18`
+`expo ~52.0.11`
+`expo-sqlite ~15.0.3`
+`@aws-sdk/client-s3 3.574.0`
 
-## Get started
+## Overview
+Photo Gallery App is a React Native application built with Expo and TypeScript, designed to simplify photo management. Users can capture photos, add captions, and view them in list or grid modes. The app supports offline storage with SQLite and uploads photos to S3 bucket for secure cloud storage. It offers a responsive and user-friendly interface for seamless photo management.
 
-1. Install dependencies
+## Installation
 
-   ```bash
-   npm install
-   ```
+**Clone the repository**
+ ```bash
+git clone https://github.com/Domior/photo-gallery-app.git
+cd photo-gallery-app
+```
+**Install dependencies**
+```bash
+npm install
+```
+**Set up environment variables**\
+Create a `.env.local` file based on `.env.example` and configure your AWS keys and other environment variables.
 
-2. Start the app
-
+**Start the app**
    ```bash
     npx expo start
    ```
@@ -23,28 +37,5 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
 
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
