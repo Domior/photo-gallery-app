@@ -199,7 +199,7 @@ export default function PhotoGallery() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingHorizontal: 10, paddingBottom: 20 },
+  container: { flex: 1, paddingHorizontal: 10, paddingBottom: 20, backgroundColor: 'white' },
   loadingWrapper: { flex: 1, justifyContent: 'center' },
   headerTop: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 },
   photosContainer: { paddingBottom: 10, marginTop: 15 },

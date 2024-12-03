@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useCameraPermissions, CameraCapturedPicture } from 'expo-camera';
 import { useSQLiteContext } from 'expo-sqlite';
-import { Button, StyleSheet, Text, View, Image, TextInput, ActivityIndicator, Alert } from 'react-native';
+import { Button, StyleSheet, View, Image, TextInput, ActivityIndicator, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { CameraComponent } from '@/components/CameraComponent';
+import { ThemedText } from '@/components/ThemedText';
 import { uploadPhotoToS3 } from '@/services/s3';
 import { insertPhoto } from '@/services/database';
 import { MAX_IMAGE_CAPTION_LENGTH } from '@/constants/gallery';
@@ -25,8 +26,8 @@ export default function Camera() {
 
   if (!permission.granted) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.message}>We need your permission to show the camera</Text>
+      <View style={{ ...styles.container, justifyContent: 'center', alignItems: 'center' }}>
+        <ThemedText style={styles.message}>We need your permission to show the camera</ThemedText>
         <Button onPress={requestPermission} title="grant permission" />
       </View>
     );
@@ -58,20 +59,27 @@ export default function Camera() {
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         {photo ? (
-          <View style={styles.photoPreviewWrapper}>
+          <KeyboardAvoidingView style={styles.photoPreviewWrapper} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={10}>
             {isLoading ? (
               <ActivityIndicator size={'large'} />
             ) : (
               <>
                 <Image source={{ uri: photo.uri }} style={styles.photo} />
-                <TextInput style={styles.input} placeholder="Enter a caption" value={caption} onChangeText={setCaption} maxLength={MAX_IMAGE_CAPTION_LENGTH} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter a caption"
+                  placeholderTextColor="gray"
+                  value={caption}
+                  onChangeText={setCaption}
+                  maxLength={MAX_IMAGE_CAPTION_LENGTH}
+                />
                 <View style={styles.photoActionButtonsContainer}>
                   <Button title="Retake" onPress={clearState} />
                   <Button title="Save Photo" onPress={handleSavePhoto} />
                 </View>
               </>
             )}
-          </View>
+          </KeyboardAvoidingView>
         ) : (
           <CameraComponent onSetPhoto={setPhoto} />
         )}
@@ -83,8 +91,8 @@ export default function Camera() {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   message: { textAlign: 'center' },
-  photoPreviewWrapper: { flex: 1, justifyContent: 'center', paddingBottom: 15, paddingHorizontal: 10 },
+  photoPreviewWrapper: { flex: 1, justifyContent: 'center', marginBottom: 55, paddingHorizontal: 10 },
   photo: { flex: 1, width: '100%', height: 300, marginBottom: 15 },
-  input: { borderWidth: 1, borderColor: '#ccc', padding: 8, marginBottom: 10, marginHorizontal: 30, borderRadius: 5 },
+  input: { borderWidth: 1, padding: 8, marginBottom: 10, marginHorizontal: 30, backgroundColor: 'white', borderColor: '#ccc', borderRadius: 5, color: 'black' },
   photoActionButtonsContainer: { flexDirection: 'row', justifyContent: 'center', gap: 30, padding: 5 },
 });

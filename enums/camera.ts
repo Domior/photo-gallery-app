@@ -8,3 +8,8 @@ export enum CAMERA_FLASH_MODE {
   OFF = 'off',
   AUTO = 'auto',
 }
+
+export enum CAMERA_FOCUS_MODE {
+  ON = 'on',
+  OFF = 'off',
+}

@@ -1,8 +1,8 @@
 import { useRef } from 'react';
-import { CameraView, CameraCapturedPicture, FlashMode } from 'expo-camera';
+import { CameraView, CameraCapturedPicture, FlashMode, FocusMode } from 'expo-camera';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { IconSymbol } from '@/components/ui/IconSymbol';
-import { CAMERA_FLASH_MODE } from '@/enums/camera';
+import { CAMERA_FLASH_MODE, CAMERA_FOCUS_MODE } from '@/enums/camera';
 import { useCamera } from '@/hooks/useCamera';
 
 type Props = {
@@ -23,7 +23,7 @@ export function CameraComponent({ onSetPhoto }: Props) {
   };
 
   return (
-    <CameraView ref={cameraRef} style={styles.cameraWrapper} facing={facing} mode="picture" flash={flashMode} autofocus="on" enableTorch>
+    <CameraView ref={cameraRef} style={styles.cameraWrapper} facing={facing} mode="picture" flash={flashMode} autofocus={CAMERA_FOCUS_MODE.OFF}>
       <View style={styles.cameraButtonsContainer}>
         <TouchableOpacity
           style={{
@@ -38,7 +38,10 @@ export function CameraComponent({ onSetPhoto }: Props) {
           {flashMode === CAMERA_FLASH_MODE.ON ? (
             <IconSymbol size={26} name="flashlight.on.fill" color="black" />
           ) : flashMode === CAMERA_FLASH_MODE.OFF ? (
-            <IconSymbol size={24} name="flashlight.off.fill" color="black" />
+            <>
+              <IconSymbol size={24} name="flashlight.off.fill" color="black" />
+              <Text style={{ fontSize: 10, color: 'black', textAlign: 'center' }}>Off</Text>
+            </>
           ) : (
             <>
               <IconSymbol size={24} name="flashlight.on.fill" color="black" />
@@ -78,7 +81,7 @@ export function CameraComponent({ onSetPhoto }: Props) {
 }
 
 const styles = StyleSheet.create({
-  cameraWrapper: { flex: 1, paddingBottom: 15, paddingHorizontal: 15 },
+  cameraWrapper: { flex: 1, paddingBottom: 65, paddingHorizontal: 15 },
   cameraButtonsContainer: { flex: 1, flexDirection: 'row', backgroundColor: 'transparent' },
   cameraPhotoButton: { width: 60, height: 60, borderRadius: 30, backgroundColor: 'white', borderWidth: 2, borderColor: '#d1d1d1' },
   cameraActionButton: { alignItems: 'center', justifyContent: 'center', alignSelf: 'flex-end', backgroundColor: 'white', bottom: 0 },
